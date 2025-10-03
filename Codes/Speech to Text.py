@@ -1,49 +1,46 @@
-import speech_recognition as sr
-import tkinter as tk
-from tkinter import filedialog
-import os
-from pydub import AudioSegment
-import shutil
+import speech_recognition as sr  # 🎧 Para reconocimiento de voz
+import tkinter as tk  # 🖥️ Interfaz gráfica
+from tkinter import filedialog  # 📂 Explorador de archivos
+import os  # 🗂️ Manejo de archivos
+from pydub import AudioSegment  # 🔊 Para convertir distintos formatos de audio
+import shutil  # 🛠️ Para verificar disponibilidad de ffmpeg
 
-# --- Verificar si ffmpeg está disponible ---
+# --- Verificar si ffmpeg está disponible --- ⚡
 FFMPEG_DISPONIBLE = shutil.which("ffmpeg") is not None
 
 # --- Función para convertir archivos de audio a WAV ---
 def convertir_a_wav(ruta_archivo):
     """
-    Convierte archivos de audio a formato WAV para compatibilidad con speech_recognition.
-    Si ffmpeg no está disponible, solo acepta WAV.
+    🔄 Convierte archivos de audio a WAV para compatibilidad con speech_recognition.
+    ⚠️ Si ffmpeg no está disponible, solo acepta WAV.
     """
     _, extension = os.path.splitext(ruta_archivo)
     extension = extension.lower()
     
-    # Si ya es WAV, no es necesario convertir
-    if extension == '.wav':
+    if extension == '.wav':  # ✅ Ya está en WAV
         return ruta_archivo
     
-    # Si no hay ffmpeg, rechazamos otros formatos
-    if not FFMPEG_DISPONIBLE:
+    if not FFMPEG_DISPONIBLE:  # ❌ No se puede convertir
         print(f"⚠️ ffmpeg no está instalado. Solo se aceptan archivos WAV.")
         return None
 
-    # Crear un nombre temporal para el archivo WAV
-    ruta_wav = "temp_audio.wav"
+    ruta_wav = "temp_audio.wav"  # 📝 Archivo temporal para la conversión
     
     try:
         audio = AudioSegment.from_file(ruta_archivo, format=extension[1:])
         audio.export(ruta_wav, format="wav")
         return ruta_wav
     except Exception as e:
-        print(f"Error al convertir el archivo: {e}")
+        print(f"❌ Error al convertir el archivo: {e}")
         return None
 
 # --- Función para seleccionar el archivo de audio ---
 def seleccionar_archivo():
     """
-    Abre una ventana del explorador de archivos para que el usuario elija un archivo de audio.
+    📂 Abre el explorador de archivos para que el usuario elija un audio.
     """
     root = tk.Tk()
-    root.withdraw() 
+    root.withdraw()  # ❌ Oculta la ventana principal de Tkinter
     
     if FFMPEG_DISPONIBLE:
         tipos = [
@@ -62,21 +59,21 @@ def seleccionar_archivo():
 # --- Función principal para transcribir el audio ---
 def transcribir_audio(ruta_archivo):
     """
-    Toma la ruta de un archivo de audio, lo procesa y devuelve el texto transcrito.
+    📝 Toma un archivo de audio, lo procesa y devuelve el texto transcrito.
     """
     if not ruta_archivo:
-        print("No se seleccionó ningún archivo. Saliendo del programa.")
+        print("❌ No se seleccionó ningún archivo. Saliendo del programa.")
         return
 
     print(f"📂 Procesando el archivo: {ruta_archivo}")
 
-    # Convertir a WAV si es necesario
+    # 🔄 Convertir a WAV si es necesario
     ruta_audio_convertido = convertir_a_wav(ruta_archivo)
     if not ruta_audio_convertido:
         print("❌ No se pudo convertir el archivo a formato compatible.")
         return
 
-    r = sr.Recognizer()
+    r = sr.Recognizer()  # 🧠 Inicializar reconocedor de voz
 
     try:
         with sr.AudioFile(ruta_audio_convertido) as source:
@@ -86,6 +83,7 @@ def transcribir_audio(ruta_archivo):
             print("✍️ Transcribiendo audio...")
             audio_data = r.record(source)
             
+            # 🌐 Usar Google Speech Recognition para transcribir
             texto = r.recognize_google(audio_data, language="es-ES")
             
             print("\n--- Texto Transcrito ---")
@@ -99,11 +97,12 @@ def transcribir_audio(ruta_archivo):
     except Exception as e:
         print(f"❌ Error inesperado: {e}")
     finally:
+        # 🗑️ Eliminar archivo temporal si se creó
         if ruta_audio_convertido != ruta_archivo and os.path.exists(ruta_audio_convertido):
             os.remove(ruta_audio_convertido)
             print("🗑️ Archivo temporal eliminado.")
 
 # --- Ejecución del programa ---
 if __name__ == "__main__":
-    ruta_del_audio = seleccionar_archivo()
-    transcribir_audio(ruta_del_audio)
+    ruta_del_audio = seleccionar_archivo()  # 📂 Selección de archivo
+    transcribir_audio(ruta_del_audio)  # ✍️ Transcribir
