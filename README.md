@@ -5,15 +5,15 @@ Una colección de programas para procesamiento de archivos, imágenes y audio.
 ## Programas incluidos
 
 ### 1. 📄 File Reader
-**Archivo:** [`File Reader.py`](https://github.com/GibranNahumGonzalezSantamaria/Python-Tools-Collection/blob/main/File%20Reader.py)  
+**Archivo:** [`File Reader.py`](https://github.com/GibranNahumGonzalezSantamaria/Python-Tools-Collection/blob/main/Codes/File%20Reader.py)  
 Lee un archivo carácter por carácter e imprime todos los símbolos (letras, números, espacios, puntuación).
 
 ### 2. 🖼️ Image Analyzer  
-**Archivo:** [`Image Analyzer.py`](https://github.com/GibranNahumGonzalezSantamaria/Python-Tools-Collection/blob/main/Image%20Analyzer.py)  
+**Archivo:** [`Image Analyzer.py`](https://github.com/GibranNahumGonzalezSantamaria/Python-Tools-Collection/blob/main/Codes/Image%20Analyzer.py)  
 Analiza una imagen píxel por píxel y extrae los valores RGB de cada uno.
 
 ### 3. 🎤 Speech to Text
-**Archivo:** [`Speech to Text.py`](https://github.com/GibranNahumGonzalezSantamaria/Python-Tools-Collection/blob/main/Speech%20to%20Text.py)  
+**Archivo:** [`Speech to Text.py`](https://github.com/GibranNahumGonzalezSantamaria/Python-Tools-Collection/blob/main/Codes/Speech%20to%20Text.py)  
 Convierte archivos de audio en texto utilizando reconocimiento de voz.
 
 **Nota:**  
