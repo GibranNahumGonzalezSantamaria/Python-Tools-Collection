@@ -4,7 +4,7 @@ Una colección de programas para procesamiento de archivos, imágenes y audio.
 
 ## Programas incluidos
 
-### 1. 📄 File Symbol Reader
+### 1. 📄 File Reader
 **Archivo:** [`File Reader.py`](https://github.com/GibranNahumGonzalezSantamaria/Python-Tools-Collection/blob/main/File%20Reader.py)  
 Lee un archivo carácter por carácter e imprime todos los símbolos (letras, números, espacios, puntuación).
 
